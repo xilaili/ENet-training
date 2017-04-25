@@ -104,8 +104,8 @@ classes = network.classes
 --print(testout[1]:size(1))
 
 local source = {}
-source.w = 1024
-source.h = 512
+source.w = 640
+source.h = 320
 
 -------------------run main loop-------------------
 im_path = 'workspace/cfl.jpg'

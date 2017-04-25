@@ -19,7 +19,7 @@ cv2.imwrite('workspace/winner.png', img)
 
 vector = np.loadtxt('workspace/vector.csv')
 img = cv2.imread('workspace/img.jpg')
-img = cv2.resize(img, (512, 256))
+#img = cv2.resize(img, (512, 256))
 for i in range(vector.shape[0]):
     #img[2*vector[i], 2*i, :] = (0, 0, 255)
     cv2.circle(img, (i, int(vector[i])), 1, (0, 0, 255), -1)
