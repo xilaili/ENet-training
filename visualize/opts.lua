@@ -29,7 +29,7 @@ function opts.parse(arg)
                   Folder location of models
    -m, --model    (default enc_2_1)
                   Model version
-   --net          (default 1)
+   --net          (default best)
                   Model epoch number
 
    ## Device

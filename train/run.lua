@@ -34,6 +34,10 @@ elseif opt.dataset == 'cs' then
    data = require 'data/loadCityscape'
 elseif opt.dataset == 'su' then
    data = require 'data/loadSUN'
+elseif opt.dataset == 'csf' then
+   data = require 'data/loadCityscapeFreeSpace'
+elseif opt.dataset == 'cfl' then
+   data = require 'data/loadCFL'
 else
    error ("Dataset loader not found. (Available options are: cv/cs/su")
 end

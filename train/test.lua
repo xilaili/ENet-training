@@ -105,7 +105,9 @@ function test(testData, classes, epoch, trainConf, model, loss )
       filename = paths.concat(opt.save, 'model-best.net')
       print('==> saving model to '..filename)
 
-      torch.save(filename, model:clearState():get(1))
+      --torch.save(filename, model:clearState():get(1))
+      model:clearState()
+      torch.save(filename, model)
       -- update to min error:
       if opt.noConfusion == 'tes' or opt.noConfusion == 'all' then
          coTotalLogger:add{['confusion total accuracy'] = teconfusion.totalValid * 100 }
@@ -145,7 +147,9 @@ function test(testData, classes, epoch, trainConf, model, loss )
    local filename = paths.concat(opt.save, 'model-'..epoch..'.net')
    --os.execute('mkdir -p ' .. sys.dirname(filename))
    print('==> saving model to '..filename)
-   torch.save(filename, model:clearState():get(1))
+   --torch.save(filename, model:clearState():get(1))
+   model:clearState()
+   torch.save(filename, model)
    if opt.noConfusion == 'tes' or opt.noConfusion == 'all' then
       -- update to min error:
       filename = paths.concat(opt.save, 'confusionMatrix-' .. epoch .. '.txt')

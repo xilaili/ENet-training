@@ -4,3 +4,10 @@
 *.net
 .DS_Store
 *.*~
+
+# folder
+save
+model
+videos
+cfl
+cityscape

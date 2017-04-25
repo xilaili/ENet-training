@@ -156,6 +156,11 @@ local qtimer = qt.QTimer()
 -- Set font size to a visible dimension
 win:setfontsize(12)
 
+--check color
+for i = 1, #classes do
+   print(colors[i][1], colors[i][2], colors[i][3])  --Xilai
+end
+
 -- Show legends in the output window:
 local dy = (opt.zoom * opt.ratio * source.h)/(#classes + 1)
 for i = 1,#classes do
@@ -191,6 +196,7 @@ local main = function()
       -- Getting next frame
       tg:reset()
       local img = frame.forward(img)
+      print(img:size())
 
       grabTime = tg:time().real
 
@@ -219,6 +225,7 @@ local main = function()
 
       -- compute network on frame:
       distributions = network.model:forward(scaledImg):squeeze()
+      --print(distributions:size())
 
       processTime = tp:time().real
 
@@ -226,6 +233,7 @@ local main = function()
       tw:reset()
 
       _, winners = distributions:max(1)
+      --print(winners:size())
 
       if opt.dev == 'cuda' then
          cutorch.synchronize()
@@ -233,6 +241,7 @@ local main = function()
       else
          winner = winners:squeeze()
       end
+      --print(winner:size())
 
       -- Confirming whether rescaling is even necessary or not
       if opt.ratio * source.h ~= winner:size(1) or

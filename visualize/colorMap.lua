@@ -64,10 +64,13 @@ local function prepDrivingColors(classes)
       Ground        = colorPalette[gra],
       Parking       = colorPalette[gra],
       RailTrack     = colorPalette[gra],
+      flat          = colorPalette[gra],
 
       Person        = colorPalette[mag],
+      person        = colorPalette[mag],
       Rider         = colorPalette[mag],
       Pedestrian    = colorPalette[mag],
+      human         = colorPalette[mag],
 
       Car           = colorPalette[red],
       Bus           = colorPalette[red],
@@ -76,21 +79,26 @@ local function prepDrivingColors(classes)
       Motorcycle    = colorPalette[red],
       Trailer       = colorPalette[red],
       Train         = colorPalette[red],
+      vehicle       = colorPalette[red],
 
       Building      = colorPalette[yel],
       Fence         = colorPalette[yel],
       Wall          = colorPalette[yel],
+      construction  = colorPalette[yel],
 
       Vegetation    = colorPalette[gre],
       Tree          = colorPalette[gre],
       Terrain       = colorPalette[gre],
       Plant         = colorPalette[gre],
+      nature        = colorPalette[gre],
 
       Pole          = colorPalette[cya],
       TrafficSign   = colorPalette[cya],
       TrafficLight  = colorPalette[cya],
+      object        = colorPalette[cya],
 
       Sky           = colorPalette[whi],
+      sky           = colorPalette[whi],
    }
 
    for i,class in ipairs(classes) do
