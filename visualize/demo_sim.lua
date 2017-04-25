@@ -108,8 +108,8 @@ source.w = 640
 source.h = 320
 
 -------------------run main loop-------------------
-im_path = 'workspace/cfl.jpg'
-lock1_path = 'workspace/lock1.txt'
+im_path = 'workspace/input/cfl.jpg'
+lock1_path = 'workspace/input/lock1.txt'
 
 while true
 do
@@ -211,11 +211,11 @@ do
         print(string.format("model running time: %.2f\n", os.clock() - start_time))
         ------------------saving result------------------------------
         start_time = os.clock()
-        --local out1 = assert(io.open("workspace/winner.csv", "w"))
-        local out3 = assert(io.open("workspace/vector.csv", "w"))
-        --if sflag then
-        --    local out2 = assert(io.open("workspace/score.csv", "w"))
-        --end
+        local out1 = assert(io.open("workspace/output/winner.csv", "w"))
+        local out3 = assert(io.open("workspace/output/vector.csv", "w"))
+        if sflag then
+            local out2 = assert(io.open("workspace/output/score.csv", "w"))
+        end
         splitter = "	"
         -- write vector.csv
         for i=1,vector:size(1) do
@@ -228,7 +228,6 @@ do
             end
         end
         out3:close() 
---[==[
         -- write winner.csv
         for i=1,winner:size(1) do
             for j=1,winner:size(2) do
@@ -253,10 +252,9 @@ do
         if sflag then
             out2:close() 
         end
---]==]
         print(string.format("post processing time: %.2f\n", os.clock() - start_time))
 
-        os.execute('mv ' .. im_path .. ' workspace/img.jpg')
-        os.execute('python workspace/visualize.py')
+        os.execute('mv ' .. im_path .. ' workspace/output/img.jpg')
+        os.execute('python workspace/output/visualize.py')
     end
 end

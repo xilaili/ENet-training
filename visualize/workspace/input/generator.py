@@ -22,10 +22,10 @@ while True:
         count -= 1
 '''
 # video input
-clip1 = VideoFileClip('../../../CFL/IMG_4817.MOV')
-clip2 = VideoFileClip('../../../CFL/IMG_4818.MOV')
-clip3 = VideoFileClip('../../../CFL/IMG_4819.MOV')
-clip4 = VideoFileClip('../../../CFL/IMG_4820.MOV')
+clip1 = VideoFileClip('../../../../CFL/IMG_4817.MOV')
+clip2 = VideoFileClip('../../../../CFL/IMG_4818.MOV')
+clip3 = VideoFileClip('../../../../CFL/IMG_4819.MOV')
+clip4 = VideoFileClip('../../../../CFL/IMG_4820.MOV')
 lock_path = 'lock1.txt'
 os.system('rm '+ lock_path)
 
