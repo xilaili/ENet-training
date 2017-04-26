@@ -107,6 +107,13 @@ local source = {}
 source.w = 640
 source.h = 320
 
+function wait(delay)
+    start = os.clock()
+    while os.clock() - start < delay*0.01 
+    do 
+        i = 1
+    end
+end
 -------------------run main loop-------------------
 im_path = 'workspace/input/cfl.jpg'
 lock1_path = 'workspace/input/lock1.txt'
@@ -114,8 +121,8 @@ lock1_path = 'workspace/input/lock1.txt'
 while true
 do
     if paths.filep(im_path) and not(paths.filep(lock1_path)) then
-        local start_time = os.clock()
         io.open(lock1_path, 'w').close()
+        local start_time = os.clock()
         -------------load image-------------------
         --prev_size = -1
         --new_size = lfs.attributes(im_path, "size")
@@ -127,7 +134,9 @@ do
         --    print(new_size)
         --end
         print("found new " .. im_path .. "!")
+        wait(1)
         img = image.load(im_path)
+        os.execute('mv ' .. im_path .. ' workspace/output/img.jpg')
         os.remove(lock1_path)
         --print(img:size())
         --os.remove(im_path)
@@ -196,11 +205,20 @@ do
             end
 
         end
-        thresh = 10
+        thresh = 0
         vector = torch.Tensor(1, winner:size(2))
         for i=1,vector:size(2) do
-           vector[1][i] = 0
+           vector[1][i] = -1
+           flag = false
+--[==[
+           if winner[winner:size(1)][i] ~= 2 then
+               flag = true
+           end
+--]==]
            for j=thresh, winner:size(1) do
+               if flag then
+                   break
+               end
                id = winner:size(1)-j
                if winner[id][i] ~= 2 then
                    vector[1][i] = id
@@ -254,7 +272,6 @@ do
         end
         print(string.format("post processing time: %.2f\n", os.clock() - start_time))
 
-        os.execute('mv ' .. im_path .. ' workspace/output/img.jpg')
-        os.execute('python workspace/output/visualize.py')
+        os.execute('python workspace/visualize.py')
     end
 end

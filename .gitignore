@@ -11,3 +11,5 @@ model
 videos
 cfl
 cityscape
+input
+output
