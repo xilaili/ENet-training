@@ -209,16 +209,7 @@ do
         vector = torch.Tensor(1, winner:size(2))
         for i=1,vector:size(2) do
            vector[1][i] = -1
-           flag = false
---[==[
-           if winner[winner:size(1)][i] ~= 2 then
-               flag = true
-           end
---]==]
            for j=thresh, winner:size(1) do
-               if flag then
-                   break
-               end
                id = winner:size(1)-j
                if winner[id][i] ~= 2 then
                    vector[1][i] = id

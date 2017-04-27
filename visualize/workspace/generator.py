@@ -3,6 +3,7 @@ import moviepy
 from moviepy.editor import VideoFileClip
 import os
 import time
+import numpy as np
 
 # camera input
 
@@ -25,6 +26,7 @@ while True:
     else:
         count -= 1
 '''
+
 # video input
 clip1 = VideoFileClip('../../../CFL/IMG_4817.MOV')
 clip2 = VideoFileClip('../../../CFL/IMG_4818.MOV')
@@ -38,7 +40,7 @@ for clip in [clip1, clip2, clip3, clip4]:
     for frame in clip.iter_frames():
         if count == 0:
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-            frame = frame[:960, :, :]
+            frame = frame[120:1080, :, :]
             frame = cv2.resize(frame, (640, 320))
             print frame.shape
             if not os.path.exists(lock_path):
@@ -55,4 +57,26 @@ for clip in [clip1, clip2, clip3, clip4]:
         else:
             count -= 1
 
+'''
 
+im_paths = os.listdir('input/Harish')
+count, counter = 0, 0
+for i, im in enumerate(im_paths):
+    if count == 0:
+        img = cv2.imread('input/Harish/Harish'+str(i+1)+'.jpg')
+        img = cv2.transpose(img)
+        img = cv2.flip(img, 0)
+        img = img[0:960, :, :]
+        img = cv2.resize(img, (640, 320))
+        print img.shape
+        if not os.path.exists('input/lock1.txt'):
+            open('input/lock1.txt', 'w').close()
+            cv2.imwrite('input/test/'+str(counter)+'.jpg', img)
+            counter += 1
+            os.system('rm input/lock1.txt')
+     
+        count = 3
+    else:
+        count -= 1
+
+'''
