@@ -13,8 +13,8 @@ torch.setdefaulttensortype('torch.FloatTensor')
 
 local trsize, tesize
 
-trsize = 282 -- cityscape train images
-tesize = 122  -- cityscape validation images
+trsize = 790 -- cityscape train images
+tesize = 80  -- cityscape validation images
 local classes = {'Unlabeled', 'Road', 'object', 'person', 'sky'}
 local conClasses = {'Road', 'object', 'person', 'sky'}
 
