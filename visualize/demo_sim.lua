@@ -115,8 +115,9 @@ function wait(delay)
     end
 end
 -------------------run main loop-------------------
-im_path = 'workspace/input/cfl.jpg'
-lock1_path = 'workspace/input/lock1.txt'
+im_path = './workspace/input/cfl.jpg'
+lock1_path = './workspace/input/lock1.txt'
+lock2_path = './workspace/output/lock2.txt'
 
 while true
 do
@@ -124,22 +125,10 @@ do
         io.open(lock1_path, 'w').close()
         local start_time = os.clock()
         -------------load image-------------------
-        --prev_size = -1
-        --new_size = lfs.attributes(im_path, "size")
-        --while prev_size ~= new_size
-        --do 
-        --    prev_size = new_size
-        --    new_size = lfs.attributes(im_path, "size")
-        --    print(prev_size)
-        --    print(new_size)
-        --end
         print("found new " .. im_path .. "!")
-        wait(1)
         img = image.load(im_path)
-        os.execute('mv ' .. im_path .. ' workspace/output/img.jpg')
+        os.execute('mv ' .. im_path .. ' ./workspace/output/img.jpg')
         os.remove(lock1_path)
-        --print(img:size())
-        --os.remove(im_path)
         print(string.format("load image time: %.2f\n", os.clock() - start_time))
 
         -----------run model----------------------
@@ -209,7 +198,7 @@ do
         vector = torch.Tensor(1, winner:size(2))
         for i=1,vector:size(2) do
            vector[1][i] = -1
-           for j=thresh, winner:size(1) do
+           for j=thresh, winner:size(1)-1 do
                id = winner:size(1)-j
                if winner[id][i] ~= 2 then
                    vector[1][i] = id
@@ -220,23 +209,29 @@ do
         print(string.format("model running time: %.2f\n", os.clock() - start_time))
         ------------------saving result------------------------------
         start_time = os.clock()
-        local out1 = assert(io.open("workspace/output/winner.csv", "w"))
-        local out3 = assert(io.open("workspace/output/vector.csv", "w"))
+        local out1 = assert(io.open("./workspace/output/winner.csv", "w"))
         if sflag then
-            local out2 = assert(io.open("workspace/output/score.csv", "w"))
+            local out2 = assert(io.open("./workspace/output/score.csv", "w"))
         end
-        splitter = "	"
+        splitter = ","
+
+        --lock2
+        if not paths.filep(lock2_path) then
+            io.open(lock2_path, 'w').close()
+            local out3 = assert(io.open("./workspace/output/vector.csv", "w"))
         -- write vector.csv
-        for i=1,vector:size(1) do
-            for j=1,vector:size(2) do
-                out3:write(vector[i][j])
-                if j==vector:size(2) then
-                    out3:write("\n")
+            for i=1,vector:size(1) do
+                for j=1,vector:size(2) do
+                    out3:write(vector[i][j])
+                    if j ~= vector:size(2) then
+                        out3:write(splitter)
+                    end
                 end
-                out3:write(splitter)
             end
+            out3:close() 
+            os.execute('cp ./workspace/output/vector.csv ./workspace/output/vector2.csv')
+            os.remove(lock2_path)
         end
-        out3:close() 
         -- write winner.csv
         for i=1,winner:size(1) do
             for j=1,winner:size(2) do

@@ -26,8 +26,9 @@ while True:
     else:
         count -= 1
 '''
-
 # video input
+clip0 = VideoFileClip('../../../CFL/IMG_4878.MOV')
+clip5 = VideoFileClip('../../../CFL/IMG_4879.MOV')
 clip1 = VideoFileClip('../../../CFL/IMG_4817.MOV')
 clip2 = VideoFileClip('../../../CFL/IMG_4818.MOV')
 clip3 = VideoFileClip('../../../CFL/IMG_4819.MOV')
@@ -36,7 +37,7 @@ lock_path = 'input/lock1.txt'
 os.system('rm '+ lock_path)
 
 count = 0
-for clip in [clip1, clip2, clip3, clip4]:
+for clip in [clip5, clip0, clip1, clip2, clip3, clip4]:
     for frame in clip.iter_frames():
         if count == 0:
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
@@ -53,7 +54,7 @@ for clip in [clip1, clip2, clip3, clip4]:
                 print "image writing time: ", time.time()-timer
                 os.system('rm '+ lock_path)
                 print 'generator deleted the lock'
-            count = 1
+            count = 0
         else:
             count -= 1
 
@@ -71,12 +72,12 @@ for i, im in enumerate(im_paths):
         print img.shape
         if not os.path.exists('input/lock1.txt'):
             open('input/lock1.txt', 'w').close()
-            cv2.imwrite('input/test/'+str(counter)+'.jpg', img)
+            cv2.imwrite('input/cfl.jpg', img)
+            #cv2.imwrite('input/test/'+str(counter)+'.jpg', img)
             counter += 1
             os.system('rm input/lock1.txt')
      
         count = 3
     else:
         count -= 1
-
 '''
